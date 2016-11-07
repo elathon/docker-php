@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb:10.1.18
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  web:
+    build: .
+    ports:
+     - "80:80"
+    volumes:
+     - ./conf/apache2:/etc/apache2/sites-available
+     - ./src:/var/www/thehandbook.dev
+    depends_on:
+     - db  
+
