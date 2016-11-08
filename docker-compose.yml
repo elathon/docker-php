@@ -3,6 +3,8 @@ version: '2'
 services:
   db:
     image: mariadb:10.1.18
+    ports:
+     - "3306:3306"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: wordpress
@@ -18,5 +20,6 @@ services:
      - ./conf/apache2:/etc/apache2/sites-available
      - ./src:/var/www/app
     depends_on:
-     - db  
-
+     - db
+    links:
+     - db
